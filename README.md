@@ -1,8 +1,9 @@
 # japan-prayer-guide-replica
 Simple project to test & practice frontend development using:
 - nextJS
-- vercel
-- jest/react testing library
+- gray-matter / remark (parsing / rendering markdown)
+- vercel? (deployments) 
+- jest/react testing library? (unit testing)
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 

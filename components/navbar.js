@@ -7,9 +7,9 @@ export default function Navbar() {
       <div className="nav-section right">
         <ul>
           <NavItem>Home</NavItem>
-          <NavItem post="about">About</NavItem>
-          <NavItem post="order">Order</NavItem>
-          <NavItem post="toolkit">Toolkit</NavItem>
+          <NavItem page="about">About</NavItem>
+          <NavItem page="order">Order</NavItem>
+          <NavItem page="toolkit">Toolkit</NavItem>
         </ul>
       </div>
     </nav>
