@@ -1,11 +1,12 @@
 import Image from "react-bootstrap/Image";
-import { Nav, Navbar } from "react-bootstrap";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
 
 export default function Navigation() {
   return (
     <Navbar>
       <Navbar.Brand href="/" className="logo">
-        <Image fluid src="/bts-crane-wht-logo.png" />
+        <Image fluid src="/hero/bts-crane-wht-logo.png" />
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">

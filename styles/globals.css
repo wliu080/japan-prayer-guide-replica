@@ -13,6 +13,17 @@ a.navbar-brand {
 }
 
 div.cover-hero {
-  width: auto;
+  background:rgba(0, 0, 0, 0.3) url('../public/hero/cover-hero.jpg');
   height: 940px;
+  background-blend-mode: darken;
+}
+
+div.cover-temp {
+  width: auto;
+  height: 1070px;
+}
+
+.hstack.cover {
+  margin-top: 70px;
+  margin-bottom: 70px;
 }

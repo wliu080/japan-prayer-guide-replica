@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { Container } from "react-bootstrap";
+import { Container, Image, Stack } from "react-bootstrap";
 import Navigation from "../components/navigation";
 
 export default function Home() {
@@ -27,22 +27,69 @@ export default function Home() {
         />
       </Head>
 
-      <Container className="cover-hero"
+      <Container
+        className="cover-hero"
         fluid
         style={{
-          backgroundImage: "url(../cover-hero.jpg)",
-          backgroundRepeat: "no-repeat"
+          backgroundRepeat: "no-repeat",
         }}
       >
         <Navigation />
 
         {/* hero banner component? */}
+        <Stack gap={1} direction="horizontal" className="col-md-5 mx-auto cover">
+          <Image fluid src="/hero/front-cover-sm.jpg" />
+          <Container>
+            <h5>BENEATH THE SURFACE</h5>
+            <div>30 ways to pray for Japan</div>
+          </Container>
+        </Stack>
+        <Container className="background-overlay"></Container>
       </Container>
 
-      {/* book preview component? */}
-      {/* about component? */}
-      {/* order component? */}
-      {/* footer */}
+      <Container
+        className="cover-temp"
+        fluid
+        style={{
+          backgroundImage: "url(../hero/reading-hero.jpg)",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
+        <div> book preview component </div>
+        {/* book preview component? */}
+      </Container>
+
+      <Container
+        className="cover-temp"
+        fluid
+        style={{
+          backgroundImage: "url(../hero/about-hero.jpg)",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "contain",
+        }}
+      >
+        <div> about preview component </div>
+        {/* about component? */}
+      </Container>
+
+      <Container
+        className="cover-temp"
+        fluid
+        style={{
+          backgroundImage: "url(../hero/cover-hero.jpg)",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
+        {/* order component? */}
+      </Container>
+
+      <Container
+        style={{
+          background: "#d5204a",
+        }}
+      >
+        {/* footer */}
+      </Container>
     </div>
   );
 }
