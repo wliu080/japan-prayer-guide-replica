@@ -21,9 +21,15 @@ div.cover-hero {
 div.cover-temp {
   width: auto;
   height: 1070px;
+  padding-top: 72px;
+  padding-bottom: 72px;
 }
 
 .hstack.cover {
   margin-top: 70px;
   margin-bottom: 70px;
+}
+
+div.top-spacer {
+  margin-top: 100px;
 }

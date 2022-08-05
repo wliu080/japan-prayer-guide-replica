@@ -23,7 +23,7 @@ export default function Home() {
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
           integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
-          crossorigin="anonymous"
+          crossOrigin="anonymous"
         />
       </Head>
 
@@ -68,8 +68,24 @@ export default function Home() {
           backgroundSize: "contain",
         }}
       >
-        <div> about preview component </div>
-        {/* about component? */}
+        <stack className="col-md-5 mx-auto">
+          <Container className="top-spacer">
+            <h1 className="text-center"> ABOUT </h1>
+            <Container style={{maxWidth: "670px"}}>
+              <p>
+                Japan is known for its natural beauty, distinctive culture, and advanced technology; there is much to
+                admire. Visitors to Japan comment that people are considerate, streets are clean, trains are on time,
+                food is presented beautifully. It is a land that leaves memorable first impressions. But beneath the
+                surface, there is so much more–more to admire, but also much to wrestle with.
+              </p>
+              <p>
+                Welcome to Beneath the Surface: 30 ways to pray for Japan. We invite you to move beyond first
+                impressions to engage with the stories and concerns of Christians in Japan. Will you join us in praying
+                for Japan?
+              </p>
+            </Container>
+          </Container>
+        </stack>
       </Container>
 
       <Container
