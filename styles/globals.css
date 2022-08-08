@@ -1,20 +1,3 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-* {
-  box-sizing: border-box;
-}
-
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
@@ -23,4 +6,30 @@ a {
     color: white;
     background: black;
   }
+}
+
+a.navbar-brand {
+  max-width: 225px;
+}
+
+div.cover-hero {
+  background:rgba(0, 0, 0, 0.3) url('../public/hero/cover-hero.jpg');
+  height: 940px;
+  background-blend-mode: darken;
+}
+
+div.cover-temp {
+  width: auto;
+  height: 1070px;
+  padding-top: 72px;
+  padding-bottom: 72px;
+}
+
+.hstack.cover {
+  margin-top: 70px;
+  margin-bottom: 70px;
+}
+
+div.top-spacer {
+  margin-top: 100px;
 }
