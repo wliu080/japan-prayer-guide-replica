@@ -1,24 +1,38 @@
 import Head from "next/head";
 import { getAllStaticPageIds, getStaticContent } from "../lib/markdownPageServer";
+import { GetStaticProps, GetStaticPaths } from "next";
 
-export async function getStaticPaths() {
+export const getStaticPaths: GetStaticPaths = async () => {
   const paths = getAllStaticPageIds();
   return {
     paths,
     fallback: false,
   };
-}
+};
 
-export async function getStaticProps({ params }) {
-  const markdownContent = await getStaticContent(params.markdownPage);
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  if (!params) {
+    return {
+      props: {},
+    };
+  }
+  const markdownContent = await getStaticContent(params.markdownPage as String);
   return {
     props: {
       markdownContent,
     },
   };
-}
+};
 
-export default function MarkdownPage({ markdownContent }) {
+export default function MarkdownPage({
+  markdownContent,
+}: {
+  markdownContent: {
+    title: string;
+    subtitle: string;
+    contentHtml: string;
+  };
+}) {
   return (
     <div>
       <Head>
