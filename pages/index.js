@@ -19,12 +19,12 @@ export default function Home() {
         <meta name="theme-color" content="#ffffff" />
 
         {/* react boostrap */}
-        <link
+        {/* <link
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
           integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
           crossOrigin="anonymous"
-        />
+        /> */}
       </Head>
 
       <Container
@@ -39,8 +39,8 @@ export default function Home() {
         {/* hero banner component? */}
         <Stack gap={1} direction="horizontal" className="col-md-5 mx-auto cover">
           <Image fluid src="/hero/front-cover-sm.jpg" />
-          <Container>
-            <h5>BENEATH THE SURFACE</h5>
+          <Container className="text-primary">
+            <h1 className="display-6">BENEATH THE SURFACE</h1>
             <div>30 ways to pray for Japan</div>
           </Container>
         </Stack>

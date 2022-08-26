@@ -4,7 +4,7 @@ import Navbar from "react-bootstrap/Navbar";
 
 export default function Navigation() {
   return (
-    <Navbar>
+    <Navbar variant="dark">
       <Navbar.Brand href="/" className="logo">
         <Image fluid src="/hero/bts-crane-wht-logo.png" />
       </Navbar.Brand>
