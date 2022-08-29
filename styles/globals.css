@@ -33,3 +33,7 @@ div.cover-temp {
 div.top-spacer {
   margin-top: 100px;
 }
+
+.md-banner {
+  height: 340px !important;
+}
