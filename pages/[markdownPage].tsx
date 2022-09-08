@@ -1,8 +1,9 @@
 import Head from "next/head";
 import { getAllStaticPageIds, getStaticContent } from "../lib/markdownPageServer";
 import { GetStaticProps, GetStaticPaths } from "next";
-import { Col, Container, Row, Stack } from "react-bootstrap";
+import { Container, Stack } from "react-bootstrap";
 import Navigation from "../components/navigation";
+import AudioPlayer from "../components/audioPlayer";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const paths = getAllStaticPageIds();
@@ -55,24 +56,13 @@ export default function MarkdownPage({
         </Stack>
       </Container>
       <Container fluid className="bg-light place-items-center">
+        <AudioPlayer/>
         <article>
           <h1 className="text-center place-content-center pt-5">{markdownContent.subtitle}</h1>
           <Container>
             <div className="align-self-center" dangerouslySetInnerHTML={{ __html: markdownContent.contentHtml }} />
           </Container>
         </article>
-        {/* <Stack gap={3} direction="horizontal" className="mx-auto pt-5">
-          <article>
-            <h1 className="text-center">{markdownContent.subtitle}</h1>
-            <Row>
-              <Col md="3"></Col>
-              <Col className="align-self-center text-dark">
-                <div dangerouslySetInnerHTML={{ __html: markdownContent.contentHtml }} />
-              </Col>
-              <Col md="3"></Col>
-            </Row>
-          </article>
-        </Stack> */}
       </Container>
     </div>
   );
