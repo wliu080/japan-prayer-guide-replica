@@ -22,7 +22,7 @@ export default function AudioPlayer(): React.ReactElement {
       progressBarRef.current.max = audioDuration.toString();
       setDuration(audioDuration);
     }
-  }, [audioPlayerRef?.current?.loadedmetadata, audioPlayerRef?.current?.readyState]);
+  }, [audioPlayerRef?.current?.onloadedmetadata, audioPlayerRef?.current?.readyState]);
 
   function formatAsAudioTime(givenTime: number): string {
     const totalSeconds = Math.floor(givenTime);

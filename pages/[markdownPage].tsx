@@ -1,4 +1,6 @@
 import Head from "next/head";
+import ReactMarkdown from "react-markdown";
+import rehypeSlug from "rehype-slug";
 import { getAllStaticPageIds, getStaticContent } from "../lib/markdownPageServer";
 import { GetStaticProps, GetStaticPaths } from "next";
 import { Container, Stack } from "react-bootstrap";
@@ -33,7 +35,8 @@ export default function MarkdownPage({
   markdownContent: {
     title: string;
     subtitle: string;
-    contentHtml: string;
+    timestamps: number[];
+    markdown: string;
   };
 }) {
   return (
@@ -56,11 +59,21 @@ export default function MarkdownPage({
         </Stack>
       </Container>
       <Container fluid className="bg-light place-items-center">
-        <AudioPlayer/>
+        <AudioPlayer />
         <article>
           <h1 className="text-center place-content-center pt-5">{markdownContent.subtitle}</h1>
           <Container>
-            <div className="align-self-center" dangerouslySetInnerHTML={{ __html: markdownContent.contentHtml }} />
+            {/* rehypeSlug plugin automatically adds ids for sections based on name */}
+            <ReactMarkdown
+              rehypePlugins={[rehypeSlug]}
+              children={markdownContent.markdown}
+              includeElementIndex={true}
+              components={{
+                // map <p> to also have timestamp data
+                p: ({ node, ...props }) => <p data-timestamp={props.index !== null ? markdownContent.timestamps[props.index]: 'n/a'} {...props} />,
+              }}
+            />
+            {/* <div className="align-self-center" dangerouslySetInnerHTML={{ __html: markdownContent.contentHtml }} /> */}
           </Container>
         </article>
       </Container>

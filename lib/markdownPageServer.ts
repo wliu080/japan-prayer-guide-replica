@@ -1,9 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-import { remark } from 'remark';
-import remarkParse from 'remark-parse';
-import remarkHtml from 'remark-html';
 
 const staticPageDirectory = path.join(process.cwd(), 'markdownContent');
 
@@ -37,20 +34,21 @@ export async function getStaticContent(markdownPage: String) {
   const fullPath = path.join(staticPageDirectory, `${markdownPage}.md`);
   const fileContents = fs.readFileSync(fullPath, 'utf8');
 
-  // Use gray-matter to parse the post metadata section
+  // Use gray-matter to parse and split between metadata section and markdown content
   const matterResult = matter(fileContents);
+  const markdown = matterResult.content;
 
   // Use remark to convert markdown into HTML string
-  const processedContent = await remark()
-    .use(remarkParse)
-    .use(remarkHtml)
-    .process(matterResult.content);
-  const contentHtml = processedContent.toString();
+  // const processedContent = await remark()
+  //   .use(remarkParse)
+  //   .use(remarkHtml)
+  //   .process(matterResult.content);
+  // const contentHtml = processedContent.toString();
 
   // Combine the data with the markdownPage
   return {
     markdownPage,
-    contentHtml,
+    markdown,
     ...matterResult.data,
   };
 }
