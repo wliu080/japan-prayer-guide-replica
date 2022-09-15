@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Button, Container } from "react-bootstrap";
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { BsFillPlayFill, BsFillPauseFill } from "react-icons/bs";
 import styles from "../styles/audioPlayer.module.scss";
 
@@ -11,9 +11,11 @@ export default function AudioPlayer(): React.ReactElement {
 
   const audioPlayerRef = useRef<HTMLAudioElement>(null);
   const progressBarRef = useRef<HTMLInputElement>(null);
+  const animationFrameRef = useRef<number>(0);
 
-  /* useEffect runs given function at (2nd param) interval, 
-       [] for once on load (but audio may not have loaded yet) */
+  /* useEffect runs given function on val change (2nd param/s), empty ([]) for once on load (but audio may not have loaded yet) 
+      Note that useEffect does not update predictably (every single etc), so will be inconsistent for consistent animation
+      */
   useEffect(() => {
     if (audioPlayerRef.current !== null && progressBarRef.current !== null) {
       const audioDuration = Math.floor(audioPlayerRef.current.duration);
@@ -39,29 +41,48 @@ export default function AudioPlayer(): React.ReactElement {
 
       if (!shouldPause) {
         audioPlayerRef.current.play();
+        animationFrameRef.current = requestAnimationFrame(whilePlaying);
       } else {
         audioPlayerRef.current.pause();
+        cancelAnimationFrame(animationFrameRef.current);
       }
     }
   }
 
-  // Called whenever the user drags the time slider
+  // update the progressBar to match audio as it's playing
+  function whilePlaying(): void {
+    if (progressBarRef.current !== null && audioPlayerRef.current !== null) {
+      progressBarRef.current.value = audioPlayerRef.current.currentTime.toString();
+      setCurrTime(progressBarRef.current.valueAsNumber);
+    }
+    // requestAnimationFrame will only run once, so it must be recalled again in whilePlaying to keep updating
+    animationFrameRef.current = requestAnimationFrame(whilePlaying);
+  }
+
+  // Called whenever the user drags the time slider, we want to update the audio to match slider
   function updateAudioTime(): void {
     if (audioPlayerRef.current !== null && progressBarRef.current !== null) {
-        audioPlayerRef.current.currentTime = progressBarRef.current.valueAsNumber;
-        setCurrTime(progressBarRef.current.valueAsNumber)
+      audioPlayerRef.current.currentTime = progressBarRef.current.valueAsNumber;
+      setCurrTime(progressBarRef.current.valueAsNumber);
     }
   }
 
   return (
     <Container>
       <audio ref={audioPlayerRef} src="/sample_audio_花も.mp3" preload="metadata"></audio>
-      <Button onClick={toggleAudio}>{isPlaying ? <BsFillPauseFill /> : <BsFillPlayFill />}</Button>
-      <div>{isNaN(currTime) ? "00:00" : formatAsAudioTime(currTime)}</div>
-      <div>
-        <input type="range" defaultValue={0} ref={progressBarRef} onChange={updateAudioTime}/>
-      </div>
-      <div>{isNaN(duration) ? "00:00" : formatAsAudioTime(duration)}</div>
+
+      <Row className="align-items-center">
+        <Col xs={1}>
+          <Button onClick={toggleAudio}>{isPlaying ? <BsFillPauseFill /> : <BsFillPlayFill />}</Button>
+        </Col>
+        <Col xs={1} className="text-end">
+          {isNaN(currTime) ? "00:00" : formatAsAudioTime(currTime)}
+        </Col>
+        <Col xs={9}>
+          <Form.Range defaultValue={0} ref={progressBarRef} onChange={updateAudioTime} />
+        </Col>
+        <Col xs={1}>{isNaN(duration) ? "00:00" : formatAsAudioTime(duration)}</Col>
+      </Row>
     </Container>
   );
 }

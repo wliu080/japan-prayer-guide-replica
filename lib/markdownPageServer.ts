@@ -40,7 +40,7 @@ export async function getStaticContent(markdownPage: String) {
   // Use gray-matter to parse the post metadata section
   const matterResult = matter(fileContents);
 
-  // Use remark to convert mardown into HTML string
+  // Use remark to convert markdown into HTML string
   const processedContent = await remark()
     .use(remarkParse)
     .use(remarkHtml)
