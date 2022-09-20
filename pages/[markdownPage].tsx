@@ -69,7 +69,6 @@ export default function MarkdownPage({
             {/* rehypeSlug plugin automatically adds ids for sections based on name */}
             <ReactMarkdown
               rehypePlugins={[rehypeSlug]}
-              children={markdownContent.markdown}
               includeElementIndex={true}
               components={{
                 // map <p> to also have timestamp data
@@ -80,7 +79,7 @@ export default function MarkdownPage({
                   />
                 ),
               }}
-            />
+            >{markdownContent.markdown}</ReactMarkdown>
           </Container>
         </article>
       </Container>
