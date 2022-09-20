@@ -1,6 +1,7 @@
 ---
 title: 'About'
 subtitle: 'Welcome'
+timestamps: [0, 5.2, 10.1, 15, 20]
 ---
 
 We’ve made this simple website to help you preview and order the *Beneath the Surface: 30 ways to pray for Japan* prayer guide. This website will be updated periodically as the prayer guide becomes available in other languages and formats. You can also access helpful information like [a list of references and links](/about) used in the prayer guide or [a contact form for general inquiries](/order).
