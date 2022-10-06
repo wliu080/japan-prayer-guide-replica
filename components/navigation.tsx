@@ -12,9 +12,9 @@ export default function Navigation() {
       <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
         <Nav className="d-flex justify-content-end" navbarScroll>
           <Nav.Link href="/">HOME</Nav.Link>
-          <Nav.Link href="/about">ABOUT</Nav.Link>
+          <Nav.Link href="#about">ABOUT</Nav.Link>
           <Nav.Link href="#order">ORDER</Nav.Link>
-          <Nav.Link href="/toolkit">TOOLKIT</Nav.Link>
+          <Nav.Link href="#toolkit">TOOLKIT</Nav.Link>
         </Nav>
       </Navbar.Collapse>
     </Navbar>
