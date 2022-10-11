@@ -49,7 +49,6 @@ export default function TopicPage({
     tags: string[];
   };
 }) {
-  console.log("onPage", topicMetadata);
   return (
     <div>
       <Head>

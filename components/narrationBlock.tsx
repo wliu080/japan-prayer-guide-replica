@@ -27,7 +27,7 @@ const NarrationBlock: FC<NarrationBlockProps> = ({ audio, markdownSections, opti
     <div>
       <AudioPlayer timestamps={audio.timestamps} containerRef={containerRef} />
       <article>
-        <Container ref={containerRef}>
+        <Container ref={containerRef} className="narration">
           <ReactMarkdown
             includeElementIndex={true}
             components={{
