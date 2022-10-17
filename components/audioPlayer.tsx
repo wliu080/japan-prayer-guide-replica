@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { BsFillPlayFill, BsFillPauseFill } from "react-icons/bs";
-import styles from "../styles/audioPlayer.module.scss";
 
 interface PlayerProps {
   timestamps: number[];

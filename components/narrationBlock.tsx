@@ -1,7 +1,6 @@
 import { FC, useRef } from "react";
 import { Container } from "react-bootstrap";
 import ReactMarkdown from "react-markdown";
-import { loadMarkdownFile } from "../services/markdownService";
 import { AudioPlayer } from "./audioPlayer";
 
 interface NarrationBlockProps {
@@ -10,38 +9,38 @@ interface NarrationBlockProps {
     timestamps: number[];
   };
   markdownSections: string[];
-  options?: {
-    useMultiblockLayout: boolean;
-  };
 }
 
-const NarrationBlock: FC<NarrationBlockProps> = ({ audio, markdownSections, options }) => {
+const NarrationBlock: FC<NarrationBlockProps> = ({ audio, markdownSections }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-
-  if (options?.useMultiblockLayout) {
-    // not currently supported
-  }
-  const markdown = markdownSections[0];
+  
+  // when multiple sections are used we need to keep track of total index count across markdown sections
+  let pIndex = -1; 
 
   return (
     <div>
       <AudioPlayer timestamps={audio.timestamps} containerRef={containerRef} />
       <article>
         <Container ref={containerRef} className="narration">
-          <ReactMarkdown
-            includeElementIndex={true}
+          {markdownSections.map((md, i) => (
+            <ReactMarkdown
             components={{
               // map <p> to also have timestamp data
-              p: ({ node, ...props }) => (
-                <p
-                  data-timestamp={props.index !== undefined && audio.timestamps ? audio.timestamps[props.index] : "n/a"}
-                  {...props}
-                />
-              ),
+              p: ({ node, ...props }) => {
+                pIndex++;
+                return (
+                  <p
+                    data-timestamp={audio.timestamps ? audio.timestamps[pIndex] : "n/a"}
+                    index={pIndex}
+                    {...props} />
+                );
+              },
             }}
           >
-            {markdown}
+            {md}
           </ReactMarkdown>
+          ))}
+          
         </Container>
       </article>
     </div>

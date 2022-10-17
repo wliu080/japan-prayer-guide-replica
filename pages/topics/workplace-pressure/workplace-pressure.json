@@ -8,9 +8,9 @@
     ],
     "audio": {
       "src": "workplace-pressure.mp4",
-      "timestamps": [0, 1.5, 3, 7]
+      "timestamps": [0, 3, 5, 7, 9, 13]
     },
-    "contentFilename": ["workplace-pressure.md"],
+    "contentFilename": ["workplace-pressure1.md", "workplace-pressure2.md"],
     "tags": ["test", "Culture and Society", "Church and Mission"]
   }
   
