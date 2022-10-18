@@ -6,7 +6,7 @@ export default function Navigation() {
   return (
     <Navbar variant="dark">
       <Navbar.Brand href="/" className="logo">
-        <Image fluid src="/hero/bts-crane-wht-logo.png" />
+        <Image fluid src="/hero/bts-crane-wht-logo.png" alt=""/>
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">

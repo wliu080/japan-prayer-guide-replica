@@ -23,7 +23,7 @@ const NarrationBlock: FC<NarrationBlockProps> = ({ audio, markdownSections }) =>
       <article>
         <Container ref={containerRef} className="narration">
           {markdownSections.map((md, i) => (
-            <ReactMarkdown
+            <ReactMarkdown key={i}
             components={{
               // map <p> to also have timestamp data
               p: ({ node, ...props }) => {
