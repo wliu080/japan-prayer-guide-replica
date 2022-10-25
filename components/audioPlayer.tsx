@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { Button, Col, Container, Form, Navbar, Row } from "react-bootstrap";
 import { BsFillPlayFill, BsFillPauseFill } from "react-icons/bs";
 
 interface PlayerProps {
@@ -14,7 +14,8 @@ const AudioPlayer = ({ timestamps, containerRef }: PlayerProps): React.ReactElem
   const [duration, setDuration] = useState(0);
 
   const audioPlayerRef = useRef<HTMLAudioElement>(null);
-  const progressBarRef = useRef<HTMLInputElement>(null);
+  const progressBarRefTop = useRef<HTMLInputElement>(null);
+  const progressBarRefBot = useRef<HTMLInputElement>(null);
   const animationFrameRef = useRef<number>(0);
 
   // vars for dealing with marking the current paragraph
@@ -24,9 +25,10 @@ const AudioPlayer = ({ timestamps, containerRef }: PlayerProps): React.ReactElem
       Note that useEffect does not update predictably (every single etc), so will be inconsistent for consistent animation
       */
   useEffect(() => {
-    if (audioPlayerRef.current !== null && progressBarRef.current !== null) {
+    if (audioPlayerRef.current !== null && progressBarRefTop.current !== null && progressBarRefBot.current !== null) {
       const audioDuration = Math.floor(audioPlayerRef.current.duration);
-      progressBarRef.current.max = audioDuration.toString();
+      progressBarRefTop.current.max = audioDuration.toString();
+      progressBarRefBot.current.max = audioDuration.toString();
       setDuration(audioDuration);
     }
   }, [audioPlayerRef?.current?.onloadedmetadata, audioPlayerRef?.current?.readyState]);
@@ -58,21 +60,32 @@ const AudioPlayer = ({ timestamps, containerRef }: PlayerProps): React.ReactElem
 
   // update the progressBar to match audio as it's playing
   function whilePlaying(): void {
-    if (progressBarRef.current !== null && audioPlayerRef.current !== null) {
-      progressBarRef.current.value = audioPlayerRef.current.currentTime.toString();
-      setCurrTime(progressBarRef.current.valueAsNumber);
-      markCurrParagraph(progressBarRef.current.valueAsNumber);
+    if (progressBarRefTop.current !== null && progressBarRefBot.current !== null && audioPlayerRef.current !== null) {
+      progressBarRefTop.current.value = audioPlayerRef.current.currentTime.toString();
+      progressBarRefBot.current.value = audioPlayerRef.current.currentTime.toString();
+      setCurrTime(progressBarRefTop.current.valueAsNumber);
+      markCurrParagraph(progressBarRefTop.current.valueAsNumber);
     }
     // requestAnimationFrame will only run once, so it must be recalled again in whilePlaying to keep updating
     animationFrameRef.current = requestAnimationFrame(whilePlaying);
   }
 
   // Called whenever the user drags the time slider, we want to update the audio to match slider
-  function updateAudioTime(): void {
-    if (audioPlayerRef.current !== null && progressBarRef.current !== null) {
-      audioPlayerRef.current.currentTime = progressBarRef.current.valueAsNumber;
-      setCurrTime(progressBarRef.current.valueAsNumber);
-      markCurrParagraph(progressBarRef.current.valueAsNumber);
+  function updateAudioTimeTop(): void {
+    if (audioPlayerRef.current !== null && progressBarRefTop.current !== null && progressBarRefBot.current !== null) {
+      audioPlayerRef.current.currentTime = progressBarRefTop.current.valueAsNumber;
+      progressBarRefBot.current.value = progressBarRefTop.current.value;
+      setCurrTime(progressBarRefTop.current.valueAsNumber);
+      markCurrParagraph(progressBarRefTop.current.valueAsNumber);
+    }
+  }
+
+  function updateAudioTimeBot(): void {
+    if (audioPlayerRef.current !== null && progressBarRefBot.current !== null && progressBarRefTop.current !== null) {
+      audioPlayerRef.current.currentTime = progressBarRefBot.current.valueAsNumber;
+      progressBarRefTop.current.value = progressBarRefBot.current.value;
+      setCurrTime(progressBarRefBot.current.valueAsNumber);
+      markCurrParagraph(progressBarRefBot.current.valueAsNumber);
     }
   }
 
@@ -97,6 +110,10 @@ const AudioPlayer = ({ timestamps, containerRef }: PlayerProps): React.ReactElem
     if (containerRef.current) {
       const section = containerRef.current.querySelectorAll('p[index="' + sectionId + '"]')[0];
       section.classList.add(CURRENT_CLASS);
+      window.scrollTo({
+        top: section.getBoundingClientRect().y,
+        behavior: "smooth",
+      });
     }
 
     // clear out class from current(now previous) paragraphId if not initial state
@@ -112,18 +129,33 @@ const AudioPlayer = ({ timestamps, containerRef }: PlayerProps): React.ReactElem
     <Container>
       <audio ref={audioPlayerRef} src="/sample_audio_花も.mp3" preload="metadata"></audio>
 
-      <Row className="align-items-center">
-        <Col xs={1}>
+      <Row className="align-items-center d-none d-md-flex">
+        <Col md={1}>
           <Button onClick={toggleAudio}>{isPlaying ? <BsFillPauseFill /> : <BsFillPlayFill />}</Button>
         </Col>
-        <Col xs={1} className="text-end">
+        <Col md={1} className="text-end">
           {isNaN(currTime) ? "00:00" : formatAsAudioTime(currTime)}
         </Col>
-        <Col xs={9}>
-          <Form.Range defaultValue={0} ref={progressBarRef} onChange={updateAudioTime} />
+        <Col md={9}>
+          <Form.Range defaultValue={0} ref={progressBarRefTop} onChange={updateAudioTimeTop} />
         </Col>
-        <Col xs={1}>{isNaN(duration) ? "00:00" : formatAsAudioTime(duration)}</Col>
+        <Col md={1}>{isNaN(duration) ? "00:00" : formatAsAudioTime(duration)}</Col>
       </Row>
+
+      <Navbar bg="info" fixed="bottom" className="d-flex d-md-none bg-gradient">
+        <Row className="align-items-center">
+          <Col sd={1} className="text-end">{isNaN(currTime) ? "00:00" : formatAsAudioTime(currTime)}</Col>
+          <Col sd={10}>
+            <Form.Range defaultValue={0} ref={progressBarRefBot} onChange={updateAudioTimeBot} />
+          </Col>
+          <Col sd={1}>{isNaN(duration) ? "00:00" : formatAsAudioTime(duration)}</Col>
+        </Row>
+        <Navbar.Collapse className="justify-content-end">
+          <Navbar.Brand>
+            <Button onClick={toggleAudio}>{isPlaying ? <BsFillPauseFill /> : <BsFillPlayFill />}</Button>
+          </Navbar.Brand>
+        </Navbar.Collapse>
+      </Navbar>
     </Container>
   );
 };
