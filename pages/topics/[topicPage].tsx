@@ -5,6 +5,7 @@ import { Container, Stack } from "react-bootstrap";
 import Navigation from "../../components/navigation";
 import { NarrationBlock } from "../../components/narrationBlock";
 import { loadMarkdownFile } from "../../services/markdownService";
+import { TagBlock } from "../../components/tagBlock";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const paths = getTopicPageIds();
@@ -25,7 +26,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   let markdownSections: string[] = [];
   topicMetadata.contentFilename.forEach((fileName: string) => {
     markdownSections.push(loadMarkdownFile(topicMetadata.folderPath, fileName));
-  })
+  });
   topicMetadata.markdownSections = markdownSections;
 
   return {
@@ -50,7 +51,7 @@ export default function TopicPage({
   };
 }) {
   return (
-    <div>
+    <div className="topic-page">
       <Head>
         <title>{topicMetadata.title}</title>
       </Head>
@@ -70,12 +71,9 @@ export default function TopicPage({
       </Container>
       {/* <PrayerSummary /> */}
       <Container fluid className="bg-light place-items-center">
-        <NarrationBlock
-          markdownSections={topicMetadata.markdownSections}
-          audio={topicMetadata.audio}
-        />
+        <NarrationBlock markdownSections={topicMetadata.markdownSections} audio={topicMetadata.audio} />
       </Container>
-      {/* <TagsBar tags={tags}/> */}
+      <TagBlock tags={topicMetadata.tags} />
     </div>
   );
 }
