@@ -1,5 +1,5 @@
 // overrides first
-$primary: #fff;
+//$primary: #fff;
 $link-color: #0000ee;
 $navbar-dark-color: #fff;
 $display-font-weight: 700;
@@ -32,6 +32,10 @@ bootstrap standard sizing
 }
 
 .narration {
+  &.header {
+    color: #fff !important;
+  }
+
   p {
     border-left: 5px solid lightgrey;
     padding-left: 10px;

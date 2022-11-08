@@ -6,6 +6,7 @@ import Navigation from "../../components/navigation";
 import { NarrationBlock } from "../../components/narrationBlock";
 import { loadMarkdownFile } from "../../services/markdownService";
 import { TagBlock } from "../../components/tagBlock";
+import { PrayerSummary } from "../../components/prayerSummary";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const paths = getTopicPageIds();
@@ -64,12 +65,12 @@ export default function TopicPage({
       >
         <Navigation />
         <Stack gap={1} direction="horizontal" className="mx-auto cover">
-          <Container className="text-primary text-center text-uppercase">
+          <Container className="narration header text-center text-uppercase">
             <h1 className="display-6">{topicMetadata.title}</h1>
           </Container>
         </Stack>
       </Container>
-      {/* <PrayerSummary /> */}
+      <PrayerSummary summary={topicMetadata.summary} />
       <Container fluid className="bg-light place-items-center">
         <NarrationBlock markdownSections={topicMetadata.markdownSections} audio={topicMetadata.audio} />
       </Container>
