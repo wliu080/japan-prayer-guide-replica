@@ -39,7 +39,7 @@ export default function Home() {
         {/* hero banner component? */}
         <Stack gap={1} direction="horizontal" className="col-md-5 mx-auto cover">
           <Image fluid src="/hero/front-cover-sm.jpg" alt="" />
-          <Container className="text-primary">
+          <Container className="text-white">
             <h1 className="display-6">BENEATH THE SURFACE</h1>
             <div>30 ways to pray for Japan</div>
           </Container>
