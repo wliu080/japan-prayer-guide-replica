@@ -109,11 +109,17 @@ const AudioPlayer = ({ timestamps, containerRef }: PlayerProps): React.ReactElem
     // mark desired section as current with a class
     if (containerRef.current) {
       const section = containerRef.current.querySelectorAll('p[index="' + sectionId + '"]')[0];
-      section.classList.add(CURRENT_CLASS);
-      window.scrollTo({
-        top: section.getBoundingClientRect().y,
-        behavior: "smooth",
-      });
+      if (!section.classList.contains(CURRENT_CLASS)) {
+        section.classList.add(CURRENT_CLASS);
+
+        // ff: twitchy behaviour, chrome: only scrolls on pause
+        // window.scrollTo({
+        //   top: section.getBoundingClientRect().y,
+        //   behavior: "smooth",
+        // });
+
+        section.scrollIntoView({ behavior: "smooth" });
+      }
     }
 
     // clear out class from current(now previous) paragraphId if not initial state
@@ -144,7 +150,9 @@ const AudioPlayer = ({ timestamps, containerRef }: PlayerProps): React.ReactElem
 
       <Navbar bg="info" fixed="bottom" className="d-flex d-md-none bg-gradient">
         <Row className="align-items-center">
-          <Col sd={1} className="text-end">{isNaN(currTime) ? "00:00" : formatAsAudioTime(currTime)}</Col>
+          <Col sd={1} className="text-end">
+            {isNaN(currTime) ? "00:00" : formatAsAudioTime(currTime)}
+          </Col>
           <Col sd={10}>
             <Form.Range defaultValue={0} ref={progressBarRefBot} onChange={updateAudioTimeBot} />
           </Col>
