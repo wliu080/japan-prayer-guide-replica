@@ -112,12 +112,7 @@ const AudioPlayer = ({ timestamps, containerRef }: PlayerProps): React.ReactElem
       if (!section.classList.contains(CURRENT_CLASS)) {
         section.classList.add(CURRENT_CLASS);
 
-        // ff: twitchy behaviour, chrome: only scrolls on pause
-        // window.scrollTo({
-        //   top: section.getBoundingClientRect().y,
-        //   behavior: "smooth",
-        // });
-
+        // tested on - ff / chrome / brave
         section.scrollIntoView({ behavior: "smooth" });
       }
     }
