@@ -12,24 +12,8 @@ const loadMarkdownFile = (folderPath: string, filename: string) => {
   const staticPageDirectory = path.join(process.cwd(), folderPath);
   const fullPath = path.join(staticPageDirectory, `${filename}`);
   const fileContents = fs.readFileSync(fullPath, "utf8");
-
-  // todo: do we still need metadata for the markdown files specifically?
-
-  /**
-   * // Use gray-matter to parse and split between metadata section and markdown content
-   * const matterResult = matter(fileContents);
-   * const markdown = matterResult.content;
-   * 
-   * // Combine the metadata with the markdownPage
-   * return {
-   *  filename,
-   *  markdown,
-   *  ...matterResult.data,
-   * };
-   */
-  
+ 
   return fileContents;
-  
 };
 
 export { loadMarkdownFile };
