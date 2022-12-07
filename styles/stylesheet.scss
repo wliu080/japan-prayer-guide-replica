@@ -43,7 +43,8 @@ bootstrap standard sizing
 }
 
 // audio player jumps to the bottom on mobile
-@media only screen and (max-width : 768px) { // Small Devices, Tablets 
+@media only screen and (max-width: 768px) {
+  // Small Devices, Tablets
   .topic-page {
     padding-bottom: 4em;
   }
@@ -53,3 +54,56 @@ bootstrap standard sizing
   }
 }
 
+// map testing css
+svg.map {
+  g.map--text {
+    path {
+      font-size: 9.88348389px;
+      font-style: normal;
+      font-weight: normal;
+      fill: #000000 !important;
+      stroke: #fff !important;
+      font-family: Bitstream Vera Sans;
+    }
+  }
+
+  path {
+    fill: #ddd;
+    fill-opacity: 1;
+    stroke: #aaa;
+
+    &.map--evenodd {
+      fill-rule: evenodd;
+    }
+
+    &.map--nonzero {
+      fill-rule: nonzero;
+    }
+
+    &.map--stroke-white {
+      fill: none;
+      stroke: #ffffff;
+      stroke-width: 1;
+      stroke-linecap: butt;
+      stroke-linejoin: miter;
+      stroke-miterlimit: 4;
+      stroke-opacity: 1;
+      stroke-dasharray: none;
+    }
+
+    &.map--stroke-black {
+      fill: none;
+      stroke: #000000;
+      stroke-width: 0.5;
+      stroke-linecap: butt;
+      stroke-linejoin: miter;
+      stroke-miterlimit: 4;
+      stroke-opacity: 1;
+      stroke-dasharray: none;
+    }
+  }
+}
+
+path:hover {
+  fill: #800 !important;
+}
