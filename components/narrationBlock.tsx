@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { FC, useRef } from "react";
 import { Container } from "react-bootstrap";
 import ReactMarkdown from "react-markdown";
@@ -27,6 +28,18 @@ const NarrationBlock: FC<NarrationBlockProps> = ({ audio, markdownSections }) =>
             components={{
               // map <p> to also have timestamp data
               p: ({ node, ...props }) => {
+                if (node.children[0].tagName === "img") {
+                  const image = node.children[0];
+                  return (
+                    <Image 
+                    src={image.properties.src}
+                    width="500"
+                    height="500"
+                    alt={image.properties.alt}
+                    />
+                  );
+                }
+
                 pIndex++;
                 return (
                   <p
